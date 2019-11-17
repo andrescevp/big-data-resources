@@ -1,0 +1,7 @@
+project_id = "tough-anvil-259208"
+region = "europe-west1"
+zone = "europe-west1-b"
+cluster_name = "cluster-test"
+disk_size = 500
+machine_type_master = "n1-standard-2"
+machine_type_worker = "n1-standard-2"
