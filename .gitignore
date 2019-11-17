@@ -1,6 +1,8 @@
-infrastructure/gcloud/Dataproc/.terraform
+.idea
+infrastructure/gcloud/Dataproc/.terraform/
 infrastructure/gcloud/Dataproc/.terraform.tfstate.lock.info
 infrastructure/gcloud/Dataproc/credentials.json
 infrastructure/gcloud/Dataproc/run.plan
 infrastructure/gcloud/Dataproc/terraform.tfstate
 infrastructure/gcloud/Dataproc/terraform.tfvars
+infrastructure/gcloud/Dataproc/terraform.backup
