@@ -10,9 +10,9 @@ services:
     command: /usr/bin/docker-quickstart
     ports:
       - "8888:8888"   # Hue
+      - "7180:7180"   # Cloudera Manager
 #      - "8020:8020"   # HDFS
 #      - "8022:22"     # SSH
-#      - "7180:7180"   # Cloudera Manager
 #      - "11000:11000" # Oozie
 #      - "50070:50070" # HDFS Rest Namenode
 #      - "50075:50075" # HDFS Rest Datanode

@@ -2,6 +2,8 @@
 docker-composer up --build
 ```
 
+Install manager: https://docs.cloudera.com/documentation/enterprise/5-5-x/topics/cm_qs_quick_start.html
+
 Windows errors binding ports:
 
 Show ports 
