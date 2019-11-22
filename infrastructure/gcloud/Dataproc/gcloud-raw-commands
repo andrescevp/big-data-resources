@@ -1,0 +1,2 @@
+# Create cluster with 3 nodes. 2cpus per node and master. 500 Gb of disk
+gcloud beta dataproc clusters create cluster-test --enable-component-gateway --region europe-west1 --subnet default --zone europe-west1-c --master-machine-type n1-standard-2 --master-boot-disk-size 500 --num-workers 3 --worker-machine-type n1-standard-2 --worker-boot-disk-size 500 --image-version 1.3-deb9 --project tough-anvil-259208
