@@ -1,8 +1,12 @@
 .idea
 infrastructure/gcloud/Dataproc/.terraform/
 infrastructure/gcloud/Dataproc/.terraform.tfstate.lock.info
+infrastructure/gcloud/Dataproc/terraform.tfstate.backup
 infrastructure/gcloud/Dataproc/credentials.json
 infrastructure/gcloud/Dataproc/run.plan
 infrastructure/gcloud/Dataproc/terraform.tfstate
 infrastructure/gcloud/Dataproc/terraform.tfvars
 infrastructure/gcloud/Dataproc/terraform.backup
+!infrastructure/cloudera/data/cloudera
+infrastructure/cloudera/data/cloudera/*
+!infrastructure/cloudera/data/cloudera/.gitkeep
