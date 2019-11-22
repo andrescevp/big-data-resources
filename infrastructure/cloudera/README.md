@@ -6,6 +6,12 @@ docker-composer up --build
 
 This docker will install also Cloudera Manager express.
 
+Recommendations
+---
+
+Increase the dockers CPU to 4 and memory to 8GB and swap to 2048 
+
+
 Windows errors binding ports:
 ---
 Show ports 
