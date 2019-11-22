@@ -1,11 +1,13 @@
+Getting started
+===
 ```
 docker-composer up --build
 ```
 
-Install manager: https://docs.cloudera.com/documentation/enterprise/5-5-x/topics/cm_qs_quick_start.html
+This docker will install also Cloudera Manager express.
 
 Windows errors binding ports:
-
+---
 Show ports 
 ```
 netsh interface ipv4 show excludedportrange protocol=tcp
