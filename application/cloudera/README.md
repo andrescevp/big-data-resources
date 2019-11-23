@@ -4,7 +4,15 @@ Getting started
 docker-composer up --build
 ```
 
-This docker will install also Cloudera Manager express.
+Cloudera manager
+---
+```
+docker exec -ti cloudera_quickstart bash
+
+# ./home/cloudera/cloudera-manager --express
+```
+
+
 
 Recommendations
 ---
