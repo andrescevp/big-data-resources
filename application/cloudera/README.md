@@ -1,7 +1,7 @@
 Getting started
 ===
 ```
-docker-composer up --build
+docker-composer up
 ```
 
 Cloudera manager
