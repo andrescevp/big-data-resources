@@ -16,12 +16,12 @@ for language in languages:
 
 print('Merging file')
 dictionaryName = 'dictionary_full.txt'
-fullDictionary = downloadPath + '/' + dictionaryName
+fullDictionary = '/tmp/' + dictionaryName
 command = "cat "+downloadPath+"/*.txt >> "+fullDictionary
 print(command)
 os.system(command)
 
 print('Moving dictionary to HDFS via PUT command')
 hdfsPath = '/tmp/' + dictionaryName
-put = Popen(["hadoop", "fs", "-put", downloadPath, hdfsPath], stdin=PIPE, bufsize=-1)
+put = Popen(["hadoop", "fs", "-put", fullDictionary, hdfsPath], stdin=PIPE, bufsize=-1)
 put.communicate()
