@@ -14,7 +14,7 @@ for language in languages:
     downloadFile = os.path.join(downloadPath, fileName)
     urllib.request.urlretrieve(url, downloadFile)
 
-fullDictionary = downloadPath+"dictionary.txt"
+fullDictionary = downloadPath+"/dictionary.txt"
 os.system("cat "+downloadPath+"/* >> "+fullDictionary)
 
 print('Moving dictionary to HDFS via PUT command')
