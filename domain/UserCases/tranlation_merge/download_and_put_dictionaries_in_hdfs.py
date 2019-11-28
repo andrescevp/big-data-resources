@@ -17,7 +17,7 @@ for language in languages:
 print('Merging file')
 dictionaryName = 'dictionary_full.txt'
 fullDictionary = downloadPath + '/' + dictionaryName
-command = "cat "+downloadPath+"/* > "+fullDictionary
+command = "cat "+downloadPath+"/*.txt >> "+fullDictionary
 print(command)
 os.system(command)
 
