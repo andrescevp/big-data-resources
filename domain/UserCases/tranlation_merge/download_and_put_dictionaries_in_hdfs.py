@@ -15,7 +15,7 @@ for language in languages:
     urllib.request.urlretrieve(url, downloadFile)
 
 print('Merging file')
-fullDictionary = downloadPath
+fullDictionary = downloadPath + 'dictionary_full.txt'
 command = "cat "+downloadPath+"/* > "+fullDictionary
 print(command)
 os.system(command)
