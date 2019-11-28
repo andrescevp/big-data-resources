@@ -15,12 +15,13 @@ for language in languages:
     urllib.request.urlretrieve(url, downloadFile)
 
 print('Merging file')
-fullDictionary = downloadPath + 'dictionary_full.txt'
+dictionaryName = 'dictionary_full.txt'
+fullDictionary = downloadPath + '/' + dictionaryName
 command = "cat "+downloadPath+"/* > "+fullDictionary
 print(command)
 os.system(command)
 
 print('Moving dictionary to HDFS via PUT command')
-hdfsPath = '/tmp/' + fullDictionary
+hdfsPath = '/tmp/' + dictionaryName
 put = Popen(["hadoop", "fs", "-put", downloadPath, hdfsPath], stdin=PIPE, bufsize=-1)
 put.communicate()
