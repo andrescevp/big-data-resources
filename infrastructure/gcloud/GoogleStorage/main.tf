@@ -14,5 +14,5 @@ resource "google_storage_bucket" "storage_bucket" {
 resource "google_storage_bucket_object" "text" {
   name   = "download_repository.sh"
   source = "initialization_action_scripts/download_repository.sh"
-  bucket = "${google_storage_bucket.storage_bucket.name}"
+  bucket = google_storage_bucket.storage_bucket.name
 }
