@@ -13,14 +13,18 @@ for line in sys.stdin:
     word = line[0]
     try:
        trad = line[1]
+
     except:
        trad = ''
        pass
+
     if current_word == word:
          trad_complete = trad_complete + "|" + trad
+
     else:
         if current_word:
             print('%s\t%s' % (current_word, trad_complete))
+
         trad_complete = trad
         current_word = word
 

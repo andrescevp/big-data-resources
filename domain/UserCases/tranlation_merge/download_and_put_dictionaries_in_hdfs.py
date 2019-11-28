@@ -11,8 +11,11 @@ for language in languages:
     print('Downloading dictionary: ' + language)
     fileName = language + '.txt'
     url = 'http://www.ilovelanguages.com/IDP/files/' + fileName
+    downloadFileTemp = os.path.join(downloadPath, 'temp_' + fileName)
     downloadFile = os.path.join(downloadPath, fileName)
-    urllib.request.urlretrieve(url, downloadFile)
+    urllib.request.urlretrieve(url, downloadFileTemp)
+    os.system("sed 's/$/\t" + language + "/' "+downloadFileTemp+" > " + downloadFile)
+    os.remove(downloadFileTemp)
 
 print('Merging file')
 dictionaryName = 'dictionary_full.txt'
