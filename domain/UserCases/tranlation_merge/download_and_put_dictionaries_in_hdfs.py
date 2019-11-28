@@ -11,8 +11,8 @@ for language in languages:
     print('Downloading dictionary: ' + language)
     fileName = language + '.txt'
     url = 'http://www.ilovelanguages.com/IDP/files/' + fileName
-    downloadPath = os.path.join(downloadPath, fileName)
-    urllib.request.urlretrieve(url, downloadPath)
+    downloadFile = os.path.join(downloadPath, fileName)
+    urllib.request.urlretrieve(url, downloadFile)
 
 fullDictionary = downloadPath+"dictionary.txt"
 os.system("cat "+downloadPath+"/* >> "+fullDictionary)
