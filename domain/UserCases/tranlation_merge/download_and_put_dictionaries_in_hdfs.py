@@ -14,8 +14,11 @@ for language in languages:
     downloadFile = os.path.join(downloadPath, fileName)
     urllib.request.urlretrieve(url, downloadFile)
 
-fullDictionary = downloadPath+"/dictionary.txt"
-os.system("cat "+downloadPath+"/* >> "+fullDictionary)
+print('Merging file')
+fullDictionary = downloadPath
+command = "cat "+downloadPath+"/* >> "+fullDictionary
+print(command)
+os.system(command)
 
 print('Moving dictionary to HDFS via PUT command')
 hdfsPath = '/tmp/' + fullDictionary
