@@ -7,6 +7,17 @@ infrastructure/gcloud/Dataproc/run.plan
 infrastructure/gcloud/Dataproc/terraform.tfstate
 infrastructure/gcloud/Dataproc/terraform.tfvars
 infrastructure/gcloud/Dataproc/terraform.backup
+infrastructure/gcloud/GoogleStorage/.terraform/
+infrastructure/gcloud/GoogleStorage/.terraform.tfstate.lock.info
+infrastructure/gcloud/GoogleStorage/terraform.tfstate.backup
+infrastructure/gcloud/GoogleStorage/credentials.json
+infrastructure/gcloud/GoogleStorage/run.plan
+infrastructure/gcloud/GoogleStorage/terraform.tfstate
+infrastructure/gcloud/GoogleStorage/terraform.tfvars
+infrastructure/gcloud/GoogleStorage/terraform.backup
 !infrastructure/cloudera/data/cloudera
 infrastructure/cloudera/data/cloudera/*
 !infrastructure/cloudera/data/cloudera/.gitkeep
+!domain/UserCases/tranlation_merge/data/
+domain/UserCases/tranlation_merge/data/*
+!domain/UserCases/tranlation_merge/data/.gitkeep

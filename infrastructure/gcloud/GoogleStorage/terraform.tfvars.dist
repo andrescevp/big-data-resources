@@ -1,0 +1,4 @@
+project_id = ""
+region = "europe-west1"
+zone = "europe-west1-b"
+bucket_name = "big-data-resources-store-bucket"

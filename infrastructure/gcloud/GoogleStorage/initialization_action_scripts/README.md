@@ -1,0 +1,1 @@
+This scripts must be placed in Google Storage system

@@ -67,9 +67,9 @@ resource "google_dataproc_cluster" "mycluster" {
 //    }
 
     # You can define multiple initialization_action blocks
-//    initialization_action {
-//      script      = "gs://dataproc-initialization-actions/stackdriver/stackdriver.sh"
-//      timeout_sec = 500
-//    }
+    initialization_action {
+      script      = "gs://big-data-resources-store-bucket/download_repository.sh"
+      timeout_sec = 500
+    }
   }
 }
