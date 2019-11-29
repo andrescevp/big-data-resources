@@ -52,4 +52,9 @@ When a user has completed their usage of the cluster, all containers can be stop
 **NOTE**:  NiFi currently does not provide any management of removed nodes from the cluster and, by virtue of how Compose works, data on those instances will be lost when instances are scaled down or removed.
 
 
+Kafka integration
+---
+
+https://towardsdatascience.com/big-data-managing-the-flow-of-data-with-apache-nifi-and-apache-kafka-af674cd8f926
+
 
