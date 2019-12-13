@@ -6,6 +6,9 @@ services:
     image: 'bitnami/zookeeper:latest'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      nifi_docker_stack:
+        ipv4_address: 172.40.0.2
 
   kafka:
     # "`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-
@@ -29,25 +32,27 @@ services:
     container_name: apache_nifi_kafka
     depends_on:
       - zookeeper
-    ports:
-      - 9092:9092
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: 172.40.0.2:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      nifi_docker_stack:
+        ipv4_address: 172.40.0.3
 
-  flume:
-    image: mengluo668/flume:1.8.0
-    hostname: flume
-    container_name: apache_nifi_flume
-    restart: always
-    depends_on:
-      - zookeeper
-    environment:
-      AGENT: fw
+#  flume:
+#    image: avastsoftware/flume-hdfs
+#    hostname: flume
+#    container_name: apache_nifi_flume
+#    restart: always
+#    depends_on:
+#      - zookeeper
+#      - kafka
+#    environment:
+#      FLUME_AGENT_NAME: agent
 #    volumes:
 #      - ${PWD}/flume/fw.properties:/apache-flume/conf/flume-conf.properties
 
@@ -57,12 +62,23 @@ services:
     depends_on:
       - zookeeper
       - kafka
-      - flume
+#      - flume
     ports:
       - '8080:8080' # Unsecured HTTP Web Port
     environment:
       - NIFI_WEB_HTTP_PORT=8080
       - NIFI_CLUSTER_IS_NODE=true
       - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
-      - NIFI_ZK_CONNECT_STRING=zookeeper:2181
+      - NIFI_ZK_CONNECT_STRING=172.40.0.2:2181
       - NIFI_ELECTION_MAX_WAIT=1 min
+    networks:
+      nifi_docker_stack:
+        ipv4_address: 172.40.0.4
+
+networks:
+  nifi_docker_stack:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.40.0.0/16
