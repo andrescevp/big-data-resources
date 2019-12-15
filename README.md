@@ -13,8 +13,11 @@ Higly recommend use linux. This repo is build under Ubuntu 19.10
 ## Directory structure
 
 Normally you can find a ```README.md``` file in each folder explaining what is the content.
-If you do not find that file I assume that the files explain themselves. For example: 
-the ```docker-compose.yml``` files inside the docker folder explain what the configuration of the service itself is.
+If you do not find that file I assume that the files explain themselves.
+
+For example: the ```docker-compose.yml``` files inside the docker folder explain what the configuration of the service itself is.
+
+Some external repositories are required as submodules for docs, dockers, etc.
 
 - doc # Here you can find docs, cheat-sheets, etc
 - docker # Here you can find the [dockers](https://www.docker.com/) of different services using [docker-compose](https://docs.docker.com/compose/)

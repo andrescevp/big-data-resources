@@ -1,0 +1,6 @@
+[submodule "doc/awesome-big-data"]
+	path = doc/awesome-big-data
+	url = https://github.com/onurakpolat/awesome-bigdata.git
+[submodule "docker/knime"]
+	path = docker/knime
+	url = https://github.com/DrSnowbird/knime-docker.git

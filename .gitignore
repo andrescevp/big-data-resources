@@ -21,3 +21,5 @@ infrastructure/cloudera/data/cloudera/*
 !domain/map_reduce/tranlation_merge/data/
 domain/map_reduce/tranlation_merge/data/*
 !domain/map_reduce/tranlation_merge/data/.gitkeep
+docker/knime/.eclipse
+docker/knime/workspace
