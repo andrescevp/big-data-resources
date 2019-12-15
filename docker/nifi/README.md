@@ -22,6 +22,8 @@
 ## Overview
 The colocated docker-compose.yml is a [Docker Compose](https://docs.docker.com/compose/overview/) definition providing an easy way to start up an Apache NiFi Cluster.
 
+Run in: http://localhost:8080/nifi/
+
 ## NiFi version configuration
 There are two primary ways in which the cluster can be configured:
 
@@ -58,7 +60,7 @@ Kafka integration
 https://towardsdatascience.com/big-data-managing-the-flow-of-data-with-apache-nifi-and-apache-kafka-af674cd8f926
 
 
-Flume
+Flume (disabled)
 ---
 
 To avoid errors with log4j add the following argument to the command
