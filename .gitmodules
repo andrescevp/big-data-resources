@@ -1,6 +1,0 @@
-[submodule "application/hadoop"]
-	path = application/hadoop
-	url = https://github.com/big-data-europe/docker-hadoop.git
-[submodule "application\\knime"]
-	path = application\\knime
-	url = https://github.com/DrSnowbird/knime-docker.git

@@ -18,6 +18,6 @@ infrastructure/gcloud/GoogleStorage/terraform.backup
 !infrastructure/cloudera/data/cloudera
 infrastructure/cloudera/data/cloudera/*
 !infrastructure/cloudera/data/cloudera/.gitkeep
-!domain/UserCases/tranlation_merge/data/
-domain/UserCases/tranlation_merge/data/*
-!domain/UserCases/tranlation_merge/data/.gitkeep
+!domain/map_reduce/tranlation_merge/data/
+domain/map_reduce/tranlation_merge/data/*
+!domain/map_reduce/tranlation_merge/data/.gitkeep

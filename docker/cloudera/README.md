@@ -12,8 +12,6 @@ docker exec -ti cloudera_quickstart bash
 # ./home/cloudera/cloudera-manager --express
 ```
 
-
-
 Recommendations
 ---
 
