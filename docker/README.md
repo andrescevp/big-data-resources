@@ -6,3 +6,6 @@ If you get errors running Knime docker, make sure you give permissions to the fo
 
 - docker/knime/.eclipse
 - docker/knime/workspace
+
+## hadoop
+

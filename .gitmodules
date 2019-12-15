@@ -4,3 +4,6 @@
 [submodule "docker/knime"]
 	path = docker/knime
 	url = https://github.com/DrSnowbird/knime-docker.git
+[submodule "docker/hadoop"]
+	path = docker/hadoop
+	url = https://github.com/big-data-europe/docker-hadoop.git
