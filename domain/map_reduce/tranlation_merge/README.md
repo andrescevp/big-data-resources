@@ -8,7 +8,7 @@ We want to have a final final with all languages in a table format.
 
 ## Installation
 
-```bash
+```shell script
 cd $PROJECT_ROOT
 cd infrastructure\gcloud\GoogleStorage
 terraform plan -out=run.plan
@@ -23,7 +23,7 @@ terraform apply "run.plan"
 
 Once the infra is in place we have to go to a console of the master server from the DataProc Cluster had setup.
 
-```bash
+```shell script
 cd /big-data-resources
 cd domain/UserCases/tranlation_merge
 python3 download_and_put_dictionaries_in_hdfs.py

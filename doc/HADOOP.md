@@ -13,7 +13,7 @@
 ## Map/Reduce jobs
 
 - Running map/reduce job:
-```bash
+```shell script
 hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 -files mapper.py,reducer.py \
 -mapper mapper.py \
@@ -22,7 +22,7 @@ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 -output /tmp/output # output parameter is a folder
 ```
 - Running map/reduce job forcing number of map/reduce internal tasks:
-```bash
+```shell script
 hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 -D mapred.reduce.tasks=1 \
 -files mapper.py,reducer.py \
@@ -32,7 +32,7 @@ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 -output /tmp/output # output parameter is a folder
 ```
 - Download output of a job in local as single file:
-```bash
+```shell script
 hadoop fs -getmerge <src> <localdst>
 ```
 

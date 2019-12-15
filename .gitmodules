@@ -10,3 +10,6 @@
 [submodule "docker/kafka"]
 	path = docker/kafka
 	url = https://github.com/wurstmeister/kafka-docker.git
+[submodule "docker/hive"]
+	path = docker/hive
+	url = https://github.com/big-data-europe/docker-hive.git
