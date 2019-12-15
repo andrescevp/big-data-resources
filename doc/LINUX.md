@@ -344,21 +344,23 @@ fg
 fg n
 ```
 #FILE PERMISSIONS
-Linux chmod example
+
+![file schema](img/linux-permissions-chart.png)
+
+```bash
+
+#Linux chmod example
         PERMISSION      EXAMPLE
 
          U   G   W
         rwx rwx rwx     chmod 777 filename
         rwx rwx r-x     chmod 775 filename
         rwx r-x r-x     chmod 755 filename
-        rw- rw- r--     chmod 664 filename:         rw- r-- r--     chmod 644 filename: 
-```bash
+        rw- rw- r--     chmod 664 filename
+        rw- r-- r--     chmod 644 filename
 
-```
-- NOTE: Use 777 sparingly!: 
-```bash
+# NOTE: Use 777 sparingly!: 
 
-```
         LEGEND
         U = User
         G = Group
@@ -368,9 +370,9 @@ Linux chmod example
         w = write
         x = execute
         - = no access: 
-```bash
-#NETWORKING
 ```
+#NETWORKING
+
 - Display all network interfaces and ip address: 
 ```bash
 ifconfig -a
