@@ -32,3 +32,14 @@ services:
     stdin_open: true
     volumes:
       - ./data/cloudera:/media/shared
+    networks:
+      kafka_docker_stack:
+        ipv4_address: 172.10.0.2
+
+networks:
+  kafka_docker_stack:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.0.0/16

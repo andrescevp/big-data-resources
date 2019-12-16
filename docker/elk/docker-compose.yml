@@ -12,3 +12,14 @@ services:
       nofile:
         soft: 20000
         hard: 65535
+    networks:
+      elk_docker_stack:
+        ipv4_address: 172.11.0.2
+
+networks:
+  elk_docker_stack:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.11.0.0/16
