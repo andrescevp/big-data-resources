@@ -21,5 +21,8 @@ infrastructure/cloudera/data/cloudera/*
 !domain/map_reduce/tranlation_merge/data/
 domain/map_reduce/tranlation_merge/data/*
 !domain/map_reduce/tranlation_merge/data/.gitkeep
+!domain/hive/spain_active_population/data/
+domain/hive/spain_active_population/data/*
+!domain/hive/spain_active_population/data/.gitkeep
 docker/knime/.eclipse
 docker/knime/workspace
