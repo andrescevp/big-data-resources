@@ -1,9 +1,3 @@
-//resource "google_storage_bucket" "pocstagingbuck" {
-//  name          = "dataproc-poc-staging-bucket"
-//  location      = "EU"
-//  force_destroy = "true"
-//}
-
 provider "google" {
   credentials = file("credentials.json")
   project = var.project_id
