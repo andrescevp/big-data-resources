@@ -1,0 +1,37 @@
+version: "3.4"
+services:
+  pentaho:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pentaho
+    restart: always
+    ports:
+      - "${PENTAHO_PORT}:8080"
+    networks:
+      pentaho_docker_stack:
+        ipv4_address: 172.15.0.2
+
+
+  mysql:
+    image: mysql:5.7
+    container_name: pentaho_stack_mysql_57
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PORT_NUMBER=${MYSQL_PORT_NUMBER}
+    ports:
+      - "${MYSQL_PORT_NUMBER}:3306"
+    volumes:
+    - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+#    - ./mysql/data:/var/lib/mysql
+    networks:
+      pentaho_docker_stack:
+        ipv4_address: 172.15.0.3
+
+networks:
+  pentaho_docker_stack:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.15.0.0/16
