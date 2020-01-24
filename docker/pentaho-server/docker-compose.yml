@@ -4,13 +4,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: pentaho
+    container_name: pentaho-server
+    volumes:
+      - /etc/machine-id:/etc/machine-id
+#    environment:
+#      DISPLAY: 1
     restart: always
     ports:
       - "${PENTAHO_PORT}:8080"
     networks:
-      pentaho_docker_stack:
-        ipv4_address: 172.15.0.2
+      pentaho_server_docker_stack:
+        ipv4_address: 172.51.0.2
 
 
   mysql:
@@ -25,13 +29,13 @@ services:
     - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 #    - ./mysql/data:/var/lib/mysql
     networks:
-      pentaho_docker_stack:
-        ipv4_address: 172.15.0.3
+      pentaho_server_docker_stack:
+        ipv4_address: 172.51.0.3
 
 networks:
-  pentaho_docker_stack:
+  pentaho_server_docker_stack:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 172.15.0.0/16
+        - subnet: 172.51.0.0/16

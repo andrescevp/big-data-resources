@@ -26,3 +26,4 @@ domain/hive/spain_active_population/data/*
 !domain/hive/spain_active_population/data/.gitkeep
 docker/knime/.eclipse
 docker/knime/workspace
+.env

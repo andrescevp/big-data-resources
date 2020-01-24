@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  anaconda:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/opt/notebooks
+    command: "/opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root --NotebookApp.token=''"
+    networks:
+      anaconda_docker_stack:
+        ipv4_address: 172.99.0.2
+
+networks:
+  anaconda_docker_stack:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.99.0.0/16

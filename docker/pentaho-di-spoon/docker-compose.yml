@@ -1,0 +1,43 @@
+version: "3.4"
+services:
+  pentaho:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pentaho-di-spoon
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/home/${DOCKER_USER}/local
+      - ${X11_DIR}:/tmp/.X11-unix/:ro
+      - ${MACHINE_ID_FILE}:/etc/machine-id
+    environment:
+      DISPLAY: ${DISPLAY}
+      TARGET_UID: ${TARGET_UID}
+      TARGET_GID: ${TARGET_GID}
+    networks:
+      pentaho_di_docker_stack:
+        ipv4_address: 172.70.0.2
+
+  mysql:
+    image: mysql:5.7
+    container_name: pentaho_di_spoon_stack_mysql_57
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PORT_NUMBER=${MYSQL_PORT_NUMBER}
+    ports:
+      - "${MYSQL_PORT_NUMBER}:3306"
+    volumes:
+    - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    - ./mysql/data:/var/lib/mysql
+    networks:
+      pentaho_di_docker_stack:
+        ipv4_address: 172.70.0.3
+
+networks:
+  pentaho_di_docker_stack:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.70.0.0/16
