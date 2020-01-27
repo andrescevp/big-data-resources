@@ -10,3 +10,6 @@
 [submodule "docker/hive"]
 	path = docker/hive
 	url = https://github.com/big-data-europe/docker-hive.git
+[submodule "docker/spark"]
+	path = docker/spark
+	url = https://github.com/gettyimages/docker-spark.git

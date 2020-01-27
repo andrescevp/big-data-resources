@@ -6,6 +6,7 @@
     <extended_description />
     <trans_version />
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -461,28 +462,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>LoadAirports</from>
-      <to>ReplaceNulls</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>EmptyCountryCodeHandler</from>
       <to>CountriesFixedCodes</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ReplaceNulls</from>
-      <to>ReplaceUnkwons</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>CountriesFixedCodes</from>
-      <to>Stream lookup</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ReadCountriesCoors</from>
-      <to>Stream lookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -491,13 +472,28 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Append streams</from>
-      <to>Database lookup</to>
+      <from>CountriesFixedCodes</from>
+      <to>Stream lookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>CleanCountries</from>
       <to>ReadCountries</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ReadCountriesCoors</from>
+      <to>Stream lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>LoadAirports</from>
+      <to>ReplaceNulls</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ReplaceNulls</from>
+      <to>ReplaceUnkwons</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -510,9 +506,66 @@
       <to>Append streams</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Append streams</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>BuilkAirports</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>CSV file input</from>
+      <to>HandleNulls</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>HandleNulls</from>
+      <to>ReplaceUnkwons 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ReplaceUnkwons 2</from>
+      <to>CountryMap</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>CountryMap</from>
+      <to>BulkAirlines</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
-    <name>Table output</name>
+    <name>Append streams</name>
+    <type>Append</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <head_name>ReplaceUnkwons</head_name>
+    <tail_name>UnkownAirport</tail_name>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>BuilkAirports</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -524,7 +577,7 @@
     </partitioning>
     <connection>DockerMysql</connection>
     <schema />
-    <table>DM_PAIS</table>
+    <table>DM_AEROPUERTOS</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -541,32 +594,52 @@
     <return_field />
     <fields>
       <field>
-        <column_name>COD_PAIS</column_name>
-        <stream_name>cod_pais</stream_name>
+        <column_name>ID_AEROPUERTO</column_name>
+        <stream_name>id_aereopuerto</stream_name>
       </field>
       <field>
-        <column_name>PAIS</column_name>
-        <stream_name>desc_pais</stream_name>
+        <column_name>NOMBRE_AEROPUERTO</column_name>
+        <stream_name>nombre_aereopuerto</stream_name>
       </field>
       <field>
-        <column_name>COD_CONTINENTE</column_name>
-        <stream_name>cod_continente</stream_name>
+        <column_name>CIUDAD_AEROPUERTO</column_name>
+        <stream_name>ciudad_aereopuerto</stream_name>
       </field>
       <field>
-        <column_name>CONTINENTE</column_name>
-        <stream_name>desc_continente</stream_name>
+        <column_name>COD_IATA_FAA</column_name>
+        <stream_name>cod_iata_faa</stream_name>
       </field>
       <field>
-        <column_name>COD_PAIS2</column_name>
-        <stream_name>cod_pais2</stream_name>
+        <column_name>COD_ICAO</column_name>
+        <stream_name>cod_icao</stream_name>
       </field>
       <field>
         <column_name>LATITUD</column_name>
-        <stream_name>latitude</stream_name>
+        <stream_name>latitud</stream_name>
       </field>
       <field>
         <column_name>LONGITUD</column_name>
-        <stream_name>longitude</stream_name>
+        <stream_name>longitud</stream_name>
+      </field>
+      <field>
+        <column_name>ALTITUD</column_name>
+        <stream_name>altitud</stream_name>
+      </field>
+      <field>
+        <column_name>ZONA_HORARIA</column_name>
+        <stream_name>zona_horaria</stream_name>
+      </field>
+      <field>
+        <column_name>DST</column_name>
+        <stream_name>dst</stream_name>
+      </field>
+      <field>
+        <column_name>ZONA_HORARIA_TZ</column_name>
+        <stream_name>zona_horaria_tz</stream_name>
+      </field>
+      <field>
+        <column_name>COD_PAIS</column_name>
+        <stream_name>cod_pais</stream_name>
       </field>
     </fields>
     <attributes />
@@ -578,14 +651,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>112</yloc>
+      <xloc>1024</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Stream lookup</name>
-    <type>StreamLookup</type>
+    <name>BulkAirlines</name>
+    <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -594,26 +667,296 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <from>ReadCountriesCoors</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
+    <connection>DockerMysql</connection>
+    <schema />
+    <table>DM_AEROLINEAS</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+      <field>
+        <column_name>ID_AEROLINEA</column_name>
+        <stream_name>id_aereolinea</stream_name>
+      </field>
+      <field>
+        <column_name>NOMBRE_AEROLINEA</column_name>
+        <stream_name>nombre_aereolinea</stream_name>
+      </field>
+      <field>
+        <column_name>ALIAS_AEROLINEA</column_name>
+        <stream_name>alias_aereolinea</stream_name>
+      </field>
+      <field>
+        <column_name>COD_IATA</column_name>
+        <stream_name>cod_iata</stream_name>
+      </field>
+      <field>
+        <column_name>COD_ICAO</column_name>
+        <stream_name>cod_icao</stream_name>
+      </field>
+      <field>
+        <column_name>IDENTIFICACION</column_name>
+        <stream_name>identificacion</stream_name>
+      </field>
+      <field>
+        <column_name>COD_PAIS</column_name>
+        <stream_name>cod_pais</stream_name>
+      </field>
+      <field>
+        <column_name>SW_ACTIVA</column_name>
+        <stream_name>sw_activa</stream_name>
+      </field>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>672</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>CSV file input</name>
+    <type>CsvInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <filename>${Internal.Entry.Current.Directory}/airlines.dat</filename>
+    <filename_field />
+    <rownum_field />
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>N</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>N</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding />
+    <fields>
+      <field>
+        <name>id_aereolinea</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency />
+        <decimal />
+        <group />
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>nombre_aereolinea</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>100</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>alias_aereolinea</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>50</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>cod_iata</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>3</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>cod_icao</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>3</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>identificacion</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>50</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>pais_aereolinea</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>50</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>sw_activa</name>
+        <type>Boolean</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>64</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>CleanCountries</name>
+    <type>ExecSQL</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>DockerMysql</connection>
+    <execute_each_row>N</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>DELETE FROM DM_PAIS</sql>
+    <set_params>N</set_params>
+    <insert_field />
+    <update_field />
+    <delete_field />
+    <read_field />
+    <arguments>
+    </arguments>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>48</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>CountriesFixedCodes</name>
+    <type>Append</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <head_name>ReadCountries</head_name>
+    <tail_name>EmptyCountryCodeHandler</tail_name>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>CountryMap</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>DockerMysql</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
     <lookup>
+      <schema />
+      <table>DM_PAIS</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>cod_pais2</name>
-        <field>country</field>
+        <name>pais_aereolinea</name>
+        <field>PAIS</field>
+        <condition>=</condition>
+        <name2 />
       </key>
       <value>
-        <name>latitude</name>
-        <rename>latitude</rename>
-        <default />
-        <type>None</type>
-      </value>
-      <value>
-        <name>longitude</name>
-        <rename>longitude</rename>
-        <default />
+        <name>COD_PAIS</name>
+        <rename>cod_pais</rename>
+        <default>Z99</default>
         <type>None</type>
       </value>
     </lookup>
@@ -626,14 +969,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>112</yloc>
+      <xloc>480</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ReadCountriesCoors</name>
-    <type>CsvInput</type>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -642,15 +985,206 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <filename>${INPUT_DIR}/countries.csv</filename>
-    <filename_field />
+    <connection>DockerMysql</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema />
+      <table>DM_PAIS</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>pais_aereopuerto</name>
+        <field>PAIS</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>COD_PAIS</name>
+        <rename>cod_pais</rename>
+        <default>Z99</default>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>848</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>EmptyCountryCodeHandler</name>
+    <type>DataGrid</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>cod_pais</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>cod_pais2</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>desc_pais</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>cod_continente</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>desc_continente</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <data>
+      <line>
+        <item>Z99</item>
+        <item>Z9</item>
+        <item>unknown</item>
+        <item>Z9</item>
+        <item>unknown</item>
+      </line>
+    </data>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>HandleNulls</name>
+    <type>IfNull</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <replaceAllByValue />
+    <replaceAllMask />
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>cod_iata</name>
+        <value>Z9</value>
+        <mask />
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>cod_icao</name>
+        <value>Z99</value>
+        <mask />
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>identificacion</name>
+        <value>I999</value>
+        <mask />
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>LoadAirports</name>
+    <type>CsvInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <filename>${Internal.Entry.Current.Directory}/airports.dat</filename>
+    <filename_field>${Internal.Entry.Current.Directory}/airports.dat</filename_field>
     <rownum_field />
     <include_filename>N</include_filename>
-    <separator>	</separator>
+    <separator>,</separator>
     <enclosure>"</enclosure>
-    <header>Y</header>
+    <header>N</header>
     <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
+    <lazy_conversion>N</lazy_conversion>
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
@@ -658,46 +1192,134 @@
     <encoding />
     <fields>
       <field>
-        <name>country</name>
-        <type>String</type>
+        <name>id_aereopuerto</name>
+        <type>Integer</type>
         <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>2</length>
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>latitude</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>10</length>
-        <precision>6</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>longitude</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>11</length>
-        <precision>6</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>name</name>
+        <name>nombre_aereopuerto</name>
         <type>String</type>
         <format />
-        <currency>¤</currency>
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ciudad_aereopuerto</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>pais_aereopuerto</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>cod_iata_faa</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>cod_icao</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>latitud</name>
+        <type>Number</type>
+        <format />
+        <currency />
         <decimal>.</decimal>
         <group>,</group>
-        <length>44</length>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>longitud</name>
+        <type>Number</type>
+        <format />
+        <currency />
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>altitud</name>
+        <type>Number</type>
+        <format />
+        <currency />
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>zona_horaria</name>
+        <type>Integer</type>
+        <format />
+        <currency />
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>dst</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>zona_horaria_tz</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -711,8 +1333,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>288</yloc>
+      <xloc>112</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -743,7 +1365,7 @@
     <accept_field />
     <accept_stepname />
     <file>
-      <name>${INPUT_DIR}/paises.xls</name>
+      <name>${Internal.Entry.Current.Directory}/paises.xls</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
@@ -852,8 +1474,8 @@
     </GUI>
   </step>
   <step>
-    <name>EmptyCountryCodeHandler</name>
-    <type>DataGrid</type>
+    <name>ReadCountriesCoors</name>
+    <type>CsvInput</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -862,99 +1484,66 @@
       <method>none</method>
       <schema_name />
     </partitioning>
+    <filename>${Internal.Entry.Current.Directory}/countries.csv</filename>
+    <filename_field />
+    <rownum_field />
+    <include_filename>N</include_filename>
+    <separator>	</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding />
     <fields>
       <field>
-        <name>cod_pais</name>
+        <name>country</name>
         <type>String</type>
         <format />
-        <currency />
-        <decimal />
-        <group />
-        <length>-1</length>
+        <currency>¤</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>2</length>
         <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
+        <trim_type>none</trim_type>
       </field>
       <field>
-        <name>cod_pais2</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
+        <name>latitude</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>¤</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>10</length>
+        <precision>6</precision>
+        <trim_type>none</trim_type>
       </field>
       <field>
-        <name>desc_pais</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
+        <name>longitude</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>¤</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>11</length>
+        <precision>6</precision>
+        <trim_type>none</trim_type>
       </field>
       <field>
-        <name>cod_continente</name>
+        <name>name</name>
         <type>String</type>
         <format />
-        <currency />
-        <decimal />
-        <group />
-        <length>-1</length>
+        <currency>¤</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>44</length>
         <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>desc_continente</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
+        <trim_type>none</trim_type>
       </field>
     </fields>
-    <data>
-      <line>
-        <item>Z99</item>
-        <item>Z9</item>
-        <item>unknown</item>
-        <item>Z9</item>
-        <item>unknown</item>
-      </line>
-    </data>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>CountriesFixedCodes</name>
-    <type>Append</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <head_name>ReadCountries</head_name>
-    <tail_name>EmptyCountryCodeHandler</tail_name>
     <attributes />
     <cluster_schema />
     <remotesteps>
@@ -965,218 +1554,7 @@
     </remotesteps>
     <GUI>
       <xloc>496</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>CleanCountries</name>
-    <type>ExecSQL</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>DockerMysql</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DELETE FROM DM_PAIS</sql>
-    <set_params>N</set_params>
-    <insert_field />
-    <update_field />
-    <delete_field />
-    <read_field />
-    <arguments>
-    </arguments>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>48</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>LoadAirports</name>
-    <type>CsvInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <filename>${INPUT_DIR}/airports.dat</filename>
-    <filename_field />
-    <rownum_field />
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>N</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>N</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding />
-    <fields>
-      <field>
-        <name>id_aereopuerto</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>-1</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>nombre_aereopuerto</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>70</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>ciudad_aereopuerto</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>39</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>pais_aereopuerto</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>32</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>cod_iata_faa</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>3</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>cod_icao</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>4</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>latitud</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>19</length>
-        <precision>15</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>longitud</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>19</length>
-        <precision>15</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>altitud</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>zona_horaria</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>5</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>dst</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>zona_horaria_tz</name>
-        <type>String</type>
-        <format />
-        <currency>¤</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>22</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>144</xloc>
-      <yloc>576</yloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1221,8 +1599,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>344</xloc>
-      <yloc>576</yloc>
+      <xloc>272</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1272,8 +1650,203 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>576</yloc>
+      <xloc>464</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>ReplaceUnkwons 2</name>
+    <type>ReplaceString</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>nombre_aereolinea</in_stream_name>
+        <out_stream_name />
+        <use_regex>no</use_regex>
+        <replace_string>Unknown</replace_string>
+        <replace_by_string>Desconocido</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string />
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>identificacion</in_stream_name>
+        <out_stream_name />
+        <use_regex>no</use_regex>
+        <replace_string>\N</replace_string>
+        <replace_by_string>Z999</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string />
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>cod_icao</in_stream_name>
+        <out_stream_name />
+        <use_regex>no</use_regex>
+        <replace_string>N/A</replace_string>
+        <replace_by_string>Z99</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string />
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+      <field>
+        <in_stream_name>alias_aereolinea</in_stream_name>
+        <out_stream_name />
+        <use_regex>no</use_regex>
+        <replace_string>\N</replace_string>
+        <replace_by_string>Z999</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string />
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <from>ReadCountriesCoors</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>cod_pais2</name>
+        <field>country</field>
+      </key>
+      <value>
+        <name>latitude</name>
+        <rename>latitude</rename>
+        <default />
+        <type>None</type>
+      </value>
+      <value>
+        <name>longitude</name>
+        <rename>longitude</rename>
+        <default />
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>672</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>DockerMysql</connection>
+    <schema />
+    <table>DM_PAIS</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+      <field>
+        <column_name>COD_PAIS</column_name>
+        <stream_name>cod_pais</stream_name>
+      </field>
+      <field>
+        <column_name>PAIS</column_name>
+        <stream_name>desc_pais</stream_name>
+      </field>
+      <field>
+        <column_name>COD_CONTINENTE</column_name>
+        <stream_name>cod_continente</stream_name>
+      </field>
+      <field>
+        <column_name>CONTINENTE</column_name>
+        <stream_name>desc_continente</stream_name>
+      </field>
+      <field>
+        <column_name>COD_PAIS2</column_name>
+        <stream_name>cod_pais2</stream_name>
+      </field>
+      <field>
+        <column_name>LATITUD</column_name>
+        <stream_name>latitude</stream_name>
+      </field>
+      <field>
+        <column_name>LONGITUD</column_name>
+        <stream_name>longitude</stream_name>
+      </field>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1290,8 +1863,8 @@
     </partitioning>
     <fields>
       <field>
-        <name>id_aereopueto</name>
-        <type />
+        <name>id_aereopuerto</name>
+        <type>Integer</type>
         <format />
         <currency />
         <decimal />
@@ -1302,7 +1875,7 @@
       </field>
       <field>
         <name>nombre_aereopuerto</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1313,7 +1886,7 @@
       </field>
       <field>
         <name>ciudad_aereopuerto</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1324,7 +1897,7 @@
       </field>
       <field>
         <name>pais_aereopuerto</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1335,7 +1908,7 @@
       </field>
       <field>
         <name>cod_iata_faa</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1346,7 +1919,7 @@
       </field>
       <field>
         <name>cod_icao</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1357,7 +1930,7 @@
       </field>
       <field>
         <name>latitud</name>
-        <type />
+        <type>Number</type>
         <format />
         <currency />
         <decimal />
@@ -1368,7 +1941,7 @@
       </field>
       <field>
         <name>longitud</name>
-        <type />
+        <type>Number</type>
         <format />
         <currency />
         <decimal />
@@ -1379,7 +1952,7 @@
       </field>
       <field>
         <name>altitud</name>
-        <type />
+        <type>Number</type>
         <format />
         <currency />
         <decimal />
@@ -1390,7 +1963,7 @@
       </field>
       <field>
         <name>zona_horaria</name>
-        <type />
+        <type>Integer</type>
         <format />
         <currency />
         <decimal />
@@ -1401,7 +1974,7 @@
       </field>
       <field>
         <name>dst</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1412,7 +1985,7 @@
       </field>
       <field>
         <name>zona_horaria_tz</name>
-        <type />
+        <type>String</type>
         <format />
         <currency />
         <decimal />
@@ -1447,83 +2020,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>720</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Append streams</name>
-    <type>Append</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <head_name>ReplaceUnkwons</head_name>
-    <tail_name>UnkownAirport</tail_name>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>768</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>DockerMysql</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema />
-      <table>DM_PAIS</table>
-      <orderby />
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>pais_aereopuerto</name>
-        <field>PAIS</field>
-        <condition>=</condition>
-        <name2 />
-      </key>
-      <value>
-        <name>COD_PAIS</name>
-        <rename>cod_pais</rename>
-        <default>Z99</default>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>968</xloc>
-      <yloc>608</yloc>
+      <xloc>448</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -1,0 +1,27 @@
+2020/01/27 22:50:57 - Transformation - Using run configuration [Pentaho local]
+2020/01/27 22:50:57 - Transformation - Using legacy execution engine
+2020/01/27 22:50:57 - job - Dispatching started for transformation [job]
+2020/01/27 22:50:58 - BulkAirlines.0 - Connected to database [DockerMysql] (commit=1000)
+2020/01/27 22:50:58 - BuilkAirports.0 - Connected to database [DockerMysql] (commit=1000)
+2020/01/27 22:50:58 - Table output.0 - Connected to database [DockerMysql] (commit=1000)
+2020/01/27 22:50:58 - EmptyCountryCodeHandler.0 - Finished processing (I=0, O=0, R=0, W=1, U=0, E=0)
+2020/01/27 22:50:58 - CleanCountries.0 - Finished reading query, closing connection.
+2020/01/27 22:50:58 - ReadCountriesCoors.0 - Header row skipped in file 'file:///home/pentaho/local/mbit-workhome/countries.csv'
+2020/01/27 22:50:58 - UnkownAirport.0 - Finished processing (I=0, O=0, R=0, W=1, U=0, E=0)
+2020/01/27 22:50:58 - ReadCountriesCoors.0 - Finished processing (I=246, O=0, R=0, W=245, U=0, E=0)
+2020/01/27 22:50:58 - CleanCountries.0 - Finished processing (I=0, O=0, R=0, W=1, U=0, E=0)
+2020/01/27 22:50:59 - ReadCountries.0 - Finished processing (I=252, O=0, R=0, W=252, U=0, E=0)
+2020/01/27 22:50:59 - CSV file input.0 - Finished processing (I=6048, O=0, R=0, W=6048, U=0, E=0)
+2020/01/27 22:50:59 - HandleNulls.0 - Finished processing (I=0, O=0, R=6048, W=6048, U=0, E=0)
+2020/01/27 22:50:59 - ReplaceUnkwons 2.0 - Finished processing (I=0, O=0, R=6048, W=6048, U=0, E=0)
+2020/01/27 22:50:59 - LoadAirports.0 - Finished processing (I=8107, O=0, R=0, W=8107, U=0, E=0)
+2020/01/27 22:50:59 - ReplaceNulls.0 - Finished processing (I=0, O=0, R=8107, W=8107, U=0, E=0)
+2020/01/27 22:50:59 - ReplaceUnkwons.0 - Finished processing (I=0, O=0, R=8107, W=8107, U=0, E=0)
+2020/01/27 22:50:59 - CountriesFixedCodes.0 - Finished processing (I=0, O=0, R=253, W=253, U=0, E=0)
+2020/01/27 22:50:59 - Stream lookup.0 - Finished processing (I=0, O=0, R=498, W=253, U=0, E=0)
+2020/01/27 22:50:59 - Table output.0 - Finished processing (I=0, O=253, R=253, W=253, U=0, E=0)
+2020/01/27 22:50:59 - Append streams.0 - Finished processing (I=0, O=0, R=8108, W=8108, U=0, E=0)
+2020/01/27 22:51:00 - CountryMap.0 - Finished processing (I=0, O=0, R=6048, W=6048, U=0, E=0)
+2020/01/27 22:51:01 - BulkAirlines.0 - Finished processing (I=0, O=6048, R=6048, W=6048, U=0, E=0)
+2020/01/27 22:51:01 - Database lookup.0 - Finished processing (I=0, O=0, R=8108, W=8108, U=0, E=0)
+2020/01/27 22:51:01 - BuilkAirports.0 - Finished processing (I=0, O=8108, R=8108, W=8108, U=0, E=0)
