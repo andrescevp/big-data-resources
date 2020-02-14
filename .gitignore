@@ -27,3 +27,5 @@ domain/hive/spain_active_population/data/*
 docker/knime/.eclipse
 docker/knime/workspace
 .env
+docker/*/data
+*.csv

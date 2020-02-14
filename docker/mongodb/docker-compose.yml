@@ -1,0 +1,17 @@
+version: '3.4'
+services:
+  mongo:
+    image: 'mongo'
+    restart: always
+    container_name: 'mongo_db'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=admin
+    volumes:
+      - ./entrypoint.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./data:/data/db
+      - ./shared:/shared
+#    command: [--auth]
+    ports:
+      - '27017-27019:27017-27019'
