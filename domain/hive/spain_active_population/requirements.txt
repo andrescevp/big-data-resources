@@ -2,5 +2,5 @@ py4j==0.10.7
 pycrypto==2.6.1
 PyGObject==3.34.0
 PyHive==0.6.1
-pyspark==2.4.4
+pyspark==3.2.2
 python-dateutil==2.8.1
